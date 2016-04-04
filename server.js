@@ -41,14 +41,17 @@ var tone_analyzer = watson.tone_analyzer(auth.tone_analyzer)
 //test data
 var myText = "kill me now! I don't want to live! I am in constant pain!"
 
-mongoose.connect('mongodb://localhost:27017/speech_app')
+var mongoUri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/speech_app'
+var port = process.env.PORT || 3000;
+
+mongoose.connect(mongoUri)
 
 mongoose.connection.once('open', function(){
 
-	app.listen(3000, function(){
-	console.log('=============')
-	console.log('listening!')
-	console.log('=============')
+	app.listen(port, function(){
+	console.log('=======================')
+	console.log('listening on port: ', port)
+	console.log('=======================')
 })
 
 })
