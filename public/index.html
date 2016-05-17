@@ -48,8 +48,7 @@
 		<input ng-model="ctrl.loginData.password" type="password" placeholder="password">
 		<button ng-click="ctrl.logIn()">Log in</button>
 		<a class = "modalButtons" href="#openModal">Sign Up!</a>
-
-
+		<span id = "badLogin" style = "color:red"></span>
 	</form>
 	<div ng-if="ctrl.user">
 		<button ng-click = "ctrl.logout()">Log out</button> 
@@ -75,46 +74,37 @@
 	<br>
 	<br>
 </div>
+<br>
+<div id = "everythingAfterInput">
 
-<div id = "chartContainer">
-	<canvas id="myChart" width="500" height="500"></canvas>
-</div>
-<div ng-if="ctrl.viewingSingle" id = "currentWrapper">
-	<div  id = "currentSentence">
-		
+	<div ng-if="ctrl.user" id = "chartContainer">
+		<canvas id="myChart" ></canvas>
 	</div>
-	<div id = "stats">
 
-	</div>
-	
-	<a href="#" class = "modalButtons" id = "deleteButton" ng-click = "ctrl.delete(ctrl.sentence, ctrl.deleteIndex)">I have made peace with this thought</a>
-</div>
-
-<div id="sentences" ng-if="ctrl.user">
-	<h2>My Saved Thoughts</h2>
-	<div>
-		<div class ="individual" ng-repeat = "sentence in ctrl.single.sentences track by $index" >
-
-			<button ng-click = "ctrl.showOne($index)">Get Report</button>
-				<!-- <button ng-if="ctrl.viewingSingle" ng-click = "ctrl.delete(sentence, $index)">I have made peace with this thought</button> -->
-			<!-- <div id = "chart_div"></div> -->
-				 {{sentence.content}} <br>
-
-			<!-- <div class ="individual" style="color:red" ng-repeat = "tone_cat in sentence.analysis.document_tone.tone_categories track by $index">
-				{{tone_cat.category_name}}
-				<div class ="individual" style = "color: black" ng-repeat = "tone in tone_cat.tones">
-					{{tone.tone_name}}: {{tone.score}}
-
-				</div>
-			</div><br> -->
-
+	<div class = "leftSide" ng-if="ctrl.user" id = "currentWrapper">
+		<div  id = "currentSentence">
 			
+		</div>
+		<div id = "stats">
+
+		</div>
+		
+		<a href="#" class = "modalButtons" id = "deleteButton" ng-click = "ctrl.delete(ctrl.sentence, ctrl.deleteIndex)">I have made peace with this thought</a>
+	</div>
+
+	<div class = "leftSide" id="sentences" ng-if="ctrl.user">
+		<h2>My Saved Thoughts</h2>
+		<div>
+			<div class ="individual" ng-repeat = "sentence in ctrl.single.sentences track by $index" >
+				<button ng-click = "ctrl.showOne($index)">Get Report</button>
+				
+					 {{sentence.content}} <br>				
+			</div>
+
 		</div>
 
 	</div>
-
 </div>
-
 
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

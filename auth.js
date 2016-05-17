@@ -6,8 +6,8 @@ module.exports = {
 	},
 	tone_analyzer:{
 		url: 'https://gateway.watsonplatform.net/tone-analyzer-beta/api',
-		username: "7d61abc7-9b25-4774-ab5d-dc7c92013388",
-		password: "wKhxOUiCy6kZ",
+		username: "8bca7665-fba2-49bb-b8f3-8b948214fe81",
+		password: "rN6Whj2qzP3g",
 		version: 'v3-beta',
 		version_date: '2016-2-11'
 	}

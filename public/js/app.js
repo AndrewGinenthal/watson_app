@@ -8,7 +8,8 @@ app.controller('doStuff', ['$http', '$scope', function($http, $scope){
 
 	var self = this;
 	
-	self.viewingSingle = true
+	// FUTURE - use this variable to drive ng-if's
+	// self.viewingSingle = true
 
 
 	// CREATE EMPTY OBJECT TO HOLD USER ID
@@ -17,18 +18,12 @@ app.controller('doStuff', ['$http', '$scope', function($http, $scope){
 	//delete SENTENCE
 	this.delete = function(sentence, index){
 
-		// self.viewingSingle = false
-
-		console.log(sentence)
-		console.log(index)
 		$http({
 			method: 'delete',
 			url: '/user/' + sentence._id,
 			data: sentence
 		}).then(
 			function(response){
-				console.log(response)
-				console.log($scope)
 				$scope.ctrl.single.sentences.splice(index, 1)
 				document.getElementById("stats").innerHTML = null
 				document.getElementById("currentSentence").innerHTML = null
@@ -41,16 +36,13 @@ app.controller('doStuff', ['$http', '$scope', function($http, $scope){
 
 	// LOGIN FUNCTION
 	this.logIn = function(){
-		console.log("LOGIN function firing in app.js");
 		$http({
 			method: 'post',
 			url: '/user/login',
 			data: this.loginData
 		}).then(
 		//success
-		function(response){
-			console.log(response);
-			
+		function(response){	
 			userObj.id = response.data._id;
 			// variable to call in template
 			self.single = response.data;
@@ -64,10 +56,8 @@ app.controller('doStuff', ['$http', '$scope', function($http, $scope){
 			// make login error true to change class
 			console.log("bad login")
 	    	self.loginError = true;
-			// create variable for element with login-status id
-			// var box = document.getElementById('login-status');
-			// // add text to p tag
-	  //   	box.innerHTML = "Incorrect login, please try again!";
+			
+			document.getElementById("badLogin").innerHTML = "incorrect password!"
 		}
 		);
 	};	
@@ -207,6 +197,7 @@ app.controller('doStuff', ['$http', '$scope', function($http, $scope){
 		}).then(
 		function(response){
 			console.log(response)
+			document.getElementById("transcription").value = ' '
 			console.log($scope.ctrl.single.sentences)
 			$scope.ctrl.single.sentences.unshift(response.data)
 			self.showOne(0)
@@ -295,46 +286,3 @@ app.controller('doStuff', ['$http', '$scope', function($http, $scope){
 		});
 	};
 }])
-
-
-
-console.log("js connected")
-
-
-
-// window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-// var recognizer = new window.webkitSpeechRecognition()
-// console.log(recognizer)
-
-// var transcription = document.getElementById('transcription')
-// // var log = document.getElementById('log');
-
-// recognizer.continuous = false;
-
-// recognizer.onresult = function(event){
-// 	transcription.textContent = ' ';
-
-// 	for (var i = event.resultIndex; i < event.results.length; i++){
-// 		if (event.results[i].isFinal) {
-//               transcription.value = event.results[i][0].transcript;
-
-//               var completeSentence = transcription.value
-//               console.log(completeSentence)
-              
-//             } else {
-//               transcription.value += event.results[i][0].transcript;
-// 			}
-// 	}
-// }
-// document.getElementById('button-play-ws').addEventListener('click', function(){
-// 	recognizer.continuous = false;
-// 	recognizer.interimResults = false;
-// 	try {
-// 		recognizer.start();
-// 		// log.innerHTML = 'recognition started' + '  ' + log.innerHTML;
-// 	} catch(ex){
-// 		// log.innerHTML = 'recognition error: ' + ex.message + '  ' + log.innerHTML
-// 	}
-// })
-
